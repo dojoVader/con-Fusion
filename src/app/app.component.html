@@ -1,7 +1,42 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<mat-toolbar color="primary">
+<!-- <mat-toolbar color="primary">
   <span>Ristorante Con Fusion</span>
 </mat-toolbar>
 
-<app-menu></app-menu>
+<app-menu></app-menu> -->
+<form [formGroup]="customerMappingForm"> 
+  <div class="container">
+    <!-- <button (click)="save()">Save</button> -->
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" formArrayName="mappings">
+      <!-- <div *ngFor="let mapping of customerMappingForm.get('mappings').controls; let i = index;" [formGroupName]="i"> -->
+        <ng-container matColumnDef="customerName">
+          <th mat-header-cell *matHeaderCellDef> AppRiver Customers</th>
+          <td mat-cell *matCellDef="let element"> {{element.customerName}} </td>
+        </ng-container>
+          
+        <!-- Connectwise Company Column -->
+        
+        <ng-container matColumnDef="mappings">
+        <th mat-header-cell *matHeaderCellDef>ConnectWise Companies</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field class="example-full-width">
+            <input type="text" placeholder="ConnectWise Company" aria-label="Assignee" matInput 
+            [matAutocomplete]="auto" formControlName="company>
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addItems()">
+              <mat-option *ngFor="let connectWiseCompany of connectWiseCompanies" [value]="option">
+                {{connectWiseCompany.name}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </td>
+        </ng-container>
+              
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <!-- </div> -->
+    </table>
+  </div>
+</form>
+
+
 
