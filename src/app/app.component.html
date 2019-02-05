@@ -5,36 +5,43 @@
 
 <app-menu></app-menu> -->
 <form [formGroup]="customerMappingForm"> 
-  <div class="container">
+  <div class="container" formArrayName="allMappings">
     <!-- <button (click)="save()">Save</button> -->
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" formArrayName="mappings">
-      <!-- <div *ngFor="let mapping of customerMappingForm.get('mappings').controls; let i = index;" [formGroupName]="i"> -->
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container matColumnDef="customerName">
           <th mat-header-cell *matHeaderCellDef> AppRiver Customers</th>
           <td mat-cell *matCellDef="let element"> {{element.customerName}} </td>
         </ng-container>
           
         <!-- Connectwise Company Column -->
-        
-        <ng-container matColumnDef="mappings">
-        <th mat-header-cell *matHeaderCellDef>ConnectWise Companies</th>
-        <td mat-cell *matCellDef="let element">
-          <mat-form-field class="example-full-width">
-            <input type="text" placeholder="ConnectWise Company" aria-label="Assignee" matInput 
-            [matAutocomplete]="auto" formControlName="company>
-            <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addItems()">
-              <mat-option *ngFor="let connectWiseCompany of connectWiseCompanies" [value]="option">
-                {{connectWiseCompany.name}}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-        </td>
-        </ng-container>
-              
+            <ng-container matColumnDef="mappings">
+              <th mat-header-cell *matHeaderCellDef>ConnectWise Companies</th>
+              <td mat-cell *matCellDef="let element; let i = index">
+              <div>
+                <div>
+                  <mat-form-field class="example-full-width" [formGroupName]="i">
+                    <input type="text" placeholder="ConnectWise Company" matInput
+                    [matAutocomplete]="auto" value="1" #input>
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="addItems($event.option, i)">
+                      <mat-option *ngFor="let connectWiseCompany of connectWiseCompanies" [value]="connectWiseCompany">
+                        {{connectWiseCompany.name}}
+                      </mat-option>
+                    </mat-autocomplete>
+                    <button style=" position: relative; left: 200px;" (click)="removeItem($event, i,input)"><i class="fa fa-minus-circle"></i></button>
+                  </mat-form-field>
+                  
+                </div>
+              </div>
+              </td>
+            </ng-container>  
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      <!-- </div> -->
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
+  </div>
+  <div>
+
+    <button (click)="log()">Log</button>
+      {{customerMappingForm.value | json}}
   </div>
 </form>
 

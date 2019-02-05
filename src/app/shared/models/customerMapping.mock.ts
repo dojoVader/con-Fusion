@@ -3,12 +3,12 @@ export const customerMappings = {
     customerNumber: 1,
     customerName: 'Alan Smith',
     originalCompanyId: -1,
-    updatedCompanyId: -1
+    updatedCompanyId: 2
   }, {
     customerNumber: 2,
     customerName: 'Mbuzi Choma',
     originalCompanyId: -1,
-    updatedCompanyId: -1
+    updatedCompanyId: 3
   }, {
     customerNumber: 3,
     customerName: 'Mandazi Imeiva',
