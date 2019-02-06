@@ -10,6 +10,7 @@ import { MenuComponent } from './menu/menu.component';
 import { DishdetailComponent } from './dishdetail/dishdetail.component';
 
 import 'hammerjs';
+import { AppRiverMatAutocompleteTriggerDirective } from './shared/override/mat-autocomplete-trigger';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import 'hammerjs';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,7 +2,7 @@ export const customerMappings = {
   customerMappings: [{
     customerNumber: 1,
     customerName: 'Alan Smith',
-    originalCompanyId: -1,
+    originalCompanyId: 2,
     updatedCompanyId: 2
   }, {
     customerNumber: 2,

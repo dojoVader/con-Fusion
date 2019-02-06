@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import { customerMappings } from '../app/shared/models/customerMapping.mock';
 import { CustomerMapping } from '../app/shared/mappings';
 import { Company } from '../app/shared/company';
@@ -21,7 +21,8 @@ export class AppComponent implements OnInit {
 
   @ViewChild('input') fileInput: ElementRef;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder,
+    private renderer: Renderer2) { }
 
   ngOnInit() {
     this.createForm();
@@ -74,12 +75,16 @@ export class AppComponent implements OnInit {
     return this.customerMappingForm.get('allMappings') as FormArray;
   }
 
-  addItems(event, index: number): void {
+  setItem(event, index: number, input): void {
     const selectedCompanyObject: Company = event.value;
     const formControl = this.customerMappingForm.get('allMappings') as FormArray;
     const formGroupObject: AbstractControl = formControl.at(index);
     formGroupObject.get('updatedCompanyId').setValue(selectedCompanyObject.companyId);
-    console.log(formGroupObject.value);
+    this.renderer.setProperty(input, 'value', selectedCompanyObject.name);
+  }
+
+  display(value: any) {
+    return (value.name !== undefined) ? value.name : '';
   }
 
   removeItem(event, index: number, i) {
